@@ -8,7 +8,9 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImage;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
@@ -148,5 +150,24 @@ class ProductController extends Controller
         }
         $product->delete();
         return redirect()->back()->with('message', 'Product Deleted with all its image');
+    }
+
+    public function viewInvoice()
+    {
+        $products = Product::all();
+        $todayDate = Carbon::now()->format('d-m-Y');
+        $pdf = Pdf::loadView('admin.report.products', compact('products'));
+        return $pdf->stream('Report Products '.$todayDate.'.pdf');
+        
+    }
+
+    public function generateInvoice()
+    {
+        $products = Product::all();
+        $data = ['products' => $products];
+
+        $pdf = Pdf::loadView('admin.report.products', $data);
+        $todayDate = Carbon::now()->format('d-m-Y');
+        return $pdf->download('Report Products '.$todayDate.'.pdf');
     }
 }

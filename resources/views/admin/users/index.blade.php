@@ -12,8 +12,9 @@
             <div class="card">
                 <div class="card-header">
                     <h4>Users
-                        <a href="{{ url('admin/users/create') }}" class="btn btn-primary text-white btn-sm float-end">Add
-                            User</a>
+                        <a href="{{ url('admin/users/create') }}" class="btn btn-primary text-white btn-sm float-end">Add User</a>
+                        <a href="{{ url('admin/users/report/generate') }}" class="btn btn-outline-info btn-sm float-end mx-1">Download Report Users</a>
+                        <a href="{{ url('admin/users/report/') }}" target="_blank" class="btn btn-outline-warning btn-sm float-end mx-1">View Report</a>
                     </h4>
                 </div>
                 <div class="card-body">

@@ -8,12 +8,20 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="shadow bg-white p-3">
+                        @if (session('message'))
+                            <div class="alert alert-success mb-3">{{ session('message') }}</div>
+                        @endif
+                        @if (session('error'))
+                            <div class="alert alert-danger mb-3">{{ session('error') }}</div>
+                        @endif
 
                         <h4 class="text-ptimary">
                             <i class="fa fa-shopping-cart text-dark"></i> My Orders Details
                             <a href="{{ url('orders') }}" class="btn btn-danger btn-sm float-end">Back</a>
-                            <a href="{{ url('orders/invoice/'.$order->id.'/generate') }}" class="btn btn-primary btn-sm float-end mx-1">Download Invoice</a>
-                            <a href="{{ url('orders/invoice/'.$order->id) }}" target="_blank" class="btn btn-warning btn-sm float-end mx-1">View Invoice</a>
+                            <a href="{{ url('orders/invoice/' . $order->id . '/generate') }}"
+                                class="btn btn-primary btn-sm float-end mx-1">Download Invoice</a>
+                            <a href="{{ url('orders/invoice/' . $order->id) }}" target="_blank"
+                                class="btn btn-warning btn-sm float-end mx-1">View Invoice</a>
 
                         </h4>
                         <hr>
@@ -74,7 +82,7 @@
                                             </td>
                                             <td width="10%">Rp. {{ $orderItem->price }}</td>
                                             <td width="10%">{{ $orderItem->quantity }}</td>
-                                            <td width="10%" class="fw-bold">Rp. 
+                                            <td width="10%" class="fw-bold">Rp.
                                                 {{ $orderItem->quantity * $orderItem->price }}</td>
                                             @php
                                                 $totalPrice += $orderItem->quantity * $orderItem->price;
@@ -87,6 +95,19 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            <form action="{{ url('orders/' . $order->id) }}" method="POST">
+                                @csrf
+                                @method('PUT')
+                                <label>Ingin Batalkan Pesanan?</label>
+                                <div class="input-group">
+                                    <select name="order_status" class="form-select">
+                                        <option value="cancelled"
+                                            {{ Request::get('status') == 'cancelled' ? 'selected' : '' }}>Cancelled
+                                        </option>
+                                    </select>
+                                    <button type="submit" class="btn btn-outline-danger">Batalkan Pesanan</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

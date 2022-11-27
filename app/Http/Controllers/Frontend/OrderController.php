@@ -24,4 +24,17 @@ class OrderController extends Controller
             return redirect()->back()->with('message','Belum Memiliki Order');
         }
     }
+
+    public function updateOrderStatus(int $orderId, Request $request)
+    {
+        $order = Order::where('id',$orderId)->first();
+        if ($order) {
+            $order->update([
+                'status_message' => $request->order_status
+            ]);
+            return redirect('orders/'.$orderId)->with('message', 'Order Cancelled');
+        } else {
+            return redirect('orders/'.$orderId)->with('message', 'Order Id not found');
+        }
+    }
 }

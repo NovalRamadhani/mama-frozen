@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Invoice {{ $order->id }}</title>
+    <title>Products Report</title>
     <style>
         .clearfix:after {
             content: "";
@@ -118,6 +118,7 @@
         table td.qty,
         table td.total {
             font-size: 1.2em;
+            text-align: left;
         }
 
         table td.grand {
@@ -144,50 +145,44 @@
 </head>
 
 <body>
+    <div>
+        @php
+            echo 'Date of report : ' . date('l') . ', ' . date('Y/m/d') . '<br>';
+        @endphp
+    </div>
     <header class="clearfix">
-        {{-- <div id="logo">
-            <img src="{{ asset('admin/images/faces/logo.png') }}">
-        </div> --}}
-        <h1>INVOICE {{ $order->id }}</h1>
-
+        <h1>Products Report</h1>
     </header>
     <main>
-        <table>
-            <thead>
-                <tr>
-                    <th class="service">Product</th>
-                    <th class="unit">PRICE</th>
-                    <th>QTY</th>
-                    <th>TOTAL</th>
-                </tr>
-            </thead>
-            <tbody>
-                @php
-                    $totalPrice = 0;
-                @endphp
-                @foreach ($order->orderItems as $orderItem)
-                    <tr>
-                        <td class="service">{{ $orderItem->product->name }}</td>
-                        <td class="unit">Rp. {{ $orderItem->price }}</td>
-                        <td class="qty">{{ $orderItem->quantity }}</td>
-                        <td class="total">Rp.
-                            {{ $orderItem->quantity * $orderItem->price }}</td>
-                        @php
-                            $totalPrice += $orderItem->quantity * $orderItem->price;
-                        @endphp
-                    </tr>
-                @endforeach
-                <tr>
-                    <td colspan="3" class="grand total">TOTAL AMOUNT</td>
-                    <td class="grand total">Rp. {{ $totalPrice }}</td>
-                </tr>
-            </tbody>
-        </table>
-        <br>
-        <hr>
-        <div>
-            <div class="notice">Thank your for shopping with Mama Frozen of Web IT</div>
+        <div class="card">
+            <div class="card-body">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th class="service">ID</th>
+                            <th class="service">Name Products</th>
+                            <th class="service">Price</th>
+                            <th class="service">Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($products as $user)
+                            <tr>
+                                <td class="service">{{ $user->id }}</td>
+                                <td class="unit">{{ $user->name }}</td>
+                                <td class="unit">{{ $user->selling_price }}</td>
+                                <td class="unit">{{ $user->quantity }}</td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="5">No Users Available</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
         </div>
     </main>
 </body>
+
 </html>

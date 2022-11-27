@@ -18,7 +18,10 @@ class UserController extends Controller
     public function viewInvoice(int $orderId)
     {
         $order = Order::findOrFail($orderId);
-        return view('frontend.users.generate-invoice', compact('order'));
+        $todayDate = Carbon::now()->format('d-m-Y');
+        $pdf = Pdf::loadView('frontend.users.generate-invoice', compact('order'));
+        return $pdf->stream('invoice-'.$order->id.'-'.$todayDate.'.pdf');
+        
     }
 
     public function generateInvoice(int $orderId)

@@ -14,6 +14,8 @@
                     <h4>Product
                         <a href="{{ url('admin/products/create') }}" class="btn btn-primary text-white btn-sm float-end">Add
                             Products</a>
+                        <a href="{{ url('admin/products/report/generate') }}" class="btn btn-outline-info btn-sm float-end mx-1">Download Invoice</a>
+                        <a href="{{ url('admin/products/report') }}" target="_blank" class="btn btn-outline-warning btn-sm float-end mx-1">View Invoice</a>
                     </h4>
                 </div>
                 <div class="card-body">
@@ -45,8 +47,11 @@
                                     <td>{{ $product->quantity }}</td>
                                     <td>{{ $product->status == '1' ? 'Hidden' : 'Visible' }}</td>
                                     <td>
-                                        <a href="{{ url('admin/products/'.$product->id.'/edit') }}" class="btn btn-sm btn-success">Edit</a>
-                                        <a href="{{ url('admin/products/'.$product->id.'/delete') }}" onclick="return confirm('Are you sure, you want to delete this data?')" class="btn btn-sm btn-danger">Delete</a>
+                                        <a href="{{ url('admin/products/' . $product->id . '/edit') }}"
+                                            class="btn btn-sm btn-success">Edit</a>
+                                        <a href="{{ url('admin/products/' . $product->id . '/delete') }}"
+                                            onclick="return confirm('Are you sure, you want to delete this data?')"
+                                            class="btn btn-sm btn-danger">Delete</a>
                                     </td>
                                 </tr>
                             @empty

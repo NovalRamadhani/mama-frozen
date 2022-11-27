@@ -3,7 +3,8 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-2 my-auto d-none d-sm-none d-md-block d-lg-block">
-                    <h5 class="brand-name">{{ $appSetting->website_name ?? 'website_name' }}</h5>
+                    {{-- <h5 class="brand-name">{{ $appSetting->website_name ?? 'website_name' }}</h5> --}}
+                    <h5 class="brand-name">Mama Frozen</h5>
                 </div>
                 <div class="col-md-5 my-auto">
                     <form action="{{ url('search') }}" method="GET" role="search">

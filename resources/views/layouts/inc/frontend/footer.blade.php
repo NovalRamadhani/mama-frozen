@@ -3,7 +3,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <h4 class="footer-heading">{{ $appSetting->website_name ?? 'website_name' }}</h4>
+                    <h4 class="footer-heading">Mama Frozen</h4>
+                    {{-- <h4 class="footer-heading">{{ $appSetting->website_name ?? 'website_name' }}</h4> --}}
                     <div class="footer-underline"></div>
                     <p>
                         Mama Frozen merupakan merek dagang yang secara konsep merupakan toko online sederhana yang
@@ -33,18 +34,20 @@
                     <div class="footer-underline"></div>
                     <div class="mb-2">
                         <p>
-                            <i class="fa fa-map-marker"></i> 
-                            {{ $appSetting->address ?? 'address' }}
+                            <i class="fa fa-map-marker"> Jl. Tirto Rahayu, Dusun Bend., Landungsari, Kec. Dau, Kabupaten Malang, Jawa Timur</i>
+                            {{-- <i class="fa fa-map-marker"></i> {{ $appSetting->address ?? 'address' }} --}}
                         </p>
                     </div>
                     <div class="mb-2">
                         <a href="" class="text-white">
-                            <i class="fa fa-phone"></i> {{ $appSetting->phone1 ?? 'phone1' }}
+                            <i class="fa fa-phone"> +62812264xxxx</i>
+                            {{-- <i class="fa fa-phone"></i> {{ $appSetting->phone1 ?? 'phone1' }} --}}
                         </a>
                     </div>
                     <div class="mb-2">
                         <a href="" class="text-white">
-                            <i class="fa fa-envelope"></i> {{ $appSetting->email1 ?? 'email1' }}
+                            <i class="fa fa-envelope"> mamafrozenmlg@gmail.com</i> 
+                            {{-- <i class="fa fa-envelope"></i> {{ $appSetting->email1 ?? 'email1' }} --}}
                         </a>
                     </div>
                 </div>

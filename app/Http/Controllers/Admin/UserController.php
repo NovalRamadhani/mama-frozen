@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -68,5 +70,24 @@ class UserController extends Controller
         $user = User::findOrFail($userId);
         $user->delete();
         return redirect('/admin/users')->with('message', 'User Delete Successfully');
+    }
+
+    public function viewInvoice()
+    {
+        $users = User::all();
+        $todayDate = Carbon::now()->format('d-m-Y');
+        $pdf = Pdf::loadView('admin.report.users', compact('users'));
+        return $pdf->stream('reports-'.$todayDate.'.pdf');
+        
+    }
+
+    public function generateInvoice()
+    {
+        $users = User::all();
+        $data = ['users' => $users];
+
+        $pdf = Pdf::loadView('admin.report.users', $data);
+        $todayDate = Carbon::now()->format('d-m-Y');
+        return $pdf->download('reports-'.$todayDate.'.pdf');
     }
 }

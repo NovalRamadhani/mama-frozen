@@ -108,10 +108,10 @@
     <table class="order-details">
         <thead>
             <tr>
-                <th width="50%" colspan="2">
+                <th colspan="2">
                     <h2 class="text-start">Mama Frozen</h2>
                 </th>
-                <th width="50%" colspan="2" class="text-end company-data">
+                <th colspan="2" class="text-end company-data">
                     <span>Invoice Id: #{{ $order->id }}</span> <br>
                     <span>Date: {{ date('d / m / Y') }}</span> <br>
                     <span>Zip code : 65151</span> <br>
@@ -119,8 +119,8 @@
                 </th>
             </tr>
             <tr class="bg-blue">
-                <th width="50%" colspan="2">Order Details</th>
-                <th width="50%" colspan="2">User Details</th>
+                <th colspan="2">Order Details</th>
+                <th colspan="2">User Details</th>
             </tr>
         </thead>
         <tbody>
@@ -183,13 +183,13 @@
             @endphp
             @foreach ($order->orderItems as $orderItem)
                 <tr>
-                    <td width="10%">{{ $orderItem->id }}</td>
+                    <td>{{ $orderItem->id }}</td>
                     <td>
                         {{ $orderItem->product->name }}
                     </td>
-                    <td width="10%">Rp. {{ $orderItem->price }}</td>
-                    <td width="10%">{{ $orderItem->quantity }}</td>
-                    <td width="10%" class="fw-bold">Rp.
+                    <td>Rp. {{ $orderItem->price }}</td>
+                    <td>{{ $orderItem->quantity }}</td>
+                    <td class="fw-bold">Rp.
                         {{ $orderItem->quantity * $orderItem->price }}</td>
                     @php
                         $totalPrice += $orderItem->quantity * $orderItem->price;

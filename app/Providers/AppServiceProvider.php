@@ -28,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Paginator::useBootstrap();
 
-        $websiteSetting = Setting::first();
-        View::share('appSetting', $websiteSetting);
+        // $websiteSetting = Setting::first();
+        // View::share('appSetting', $websiteSetting);
     }
 }

@@ -56,7 +56,7 @@
                                         <td>{{ $item->payment_mode }}</td>
                                         <td>{{ $item->created_at->format('d-m-Y') }}</td>
                                         <td>{{ $item->status_message }}</td>
-                                        <td><a href="{{ url('admin/orders/' . $item->id) }}" class="btn btn-primary">View</a></td>
+                                        <td><a href="{{ url('admin/orders/' . $item->id) }}" class="btn btn-primary text-white">View</a></td>
                                     </tr>
                                 @empty
                                     <tr>

@@ -42,6 +42,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('orders', [App\Http\Controllers\Frontend\OrderController::class, 'index']);
     Route::get('orders/{orderId}', [App\Http\Controllers\Frontend\OrderController::class, 'show']);
+    Route::put('orders/{orderId}', [App\Http\Controllers\Frontend\OrderController::class, 'updateOrderStatus']);
 
     Route::controller(App\Http\Controllers\Frontend\UserController::class)->group(function () {
         Route::get('profile', 'index');
@@ -57,9 +58,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/collections/{category_slug}', 'products');
         Route::get('/collections/{category_slug}/{product_slug}', 'productView');
     });
+    Route::get('thank-you', [App\Http\Controllers\Frontend\FrontendController::class, 'thankyou']);
 });
 
-Route::get('thank-you', [App\Http\Controllers\Frontend\FrontendController::class, 'thankyou']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -67,8 +68,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index']);
-    Route::get('/settings', [App\Http\Controllers\Admin\SettingController::class, 'index']);
-    Route::post('/settings', [App\Http\Controllers\Admin\SettingController::class, 'store']);
+    // Route::get('/settings', [App\Http\Controllers\Admin\SettingController::class, 'index']);
+    // Route::post('/settings', [App\Http\Controllers\Admin\SettingController::class, 'store']);
 
     Route::controller(App\Http\Controllers\Admin\SliderController::class)->group(function () {
         Route::get('/sliders', 'index');
@@ -93,6 +94,9 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::put('/products/{product}', 'update');
         Route::get('/products/{product_id}/delete', 'destroy');
         Route::get('/product-image/{product_image_id}/delete', 'destroyImage');
+
+        Route::get('/products/report', 'viewInvoice');
+        Route::get('/products/report/generate', 'generateInvoice');
     });
 
     Route::get('/brands', App\Http\Livewire\Admin\Brand\Index::class);
@@ -113,5 +117,9 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::get('/users/{user_id}/edit', 'edit');
         Route::put('/users/{user_id}', 'update');
         Route::get('/users/{user_id}/delete', 'destroy');
+
+        Route::get('/users/report/', 'viewInvoice');
+        Route::get('/users/report/generate', 'generateInvoice');
+
     });
 });

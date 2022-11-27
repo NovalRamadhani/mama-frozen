@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Invoice {{ $order->id }}</title>
+    <title>Users Report</title>
     <style>
         .clearfix:after {
             content: "";
@@ -118,6 +118,7 @@
         table td.qty,
         table td.total {
             font-size: 1.2em;
+            text-align: left;
         }
 
         table td.grand {
@@ -145,48 +146,44 @@
 
 <body>
     <header class="clearfix">
-        {{-- <div id="logo">
-            <img src="{{ asset('admin/images/faces/logo.png') }}">
-        </div> --}}
-        <h1>INVOICE {{ $order->id }}</h1>
-
+        <h1>Users Report</h1>
     </header>
     <main>
-        <table>
-            <thead>
-                <tr>
-                    <th class="service">Product</th>
-                    <th class="unit">PRICE</th>
-                    <th>QTY</th>
-                    <th>TOTAL</th>
-                </tr>
-            </thead>
-            <tbody>
-                @php
-                    $totalPrice = 0;
-                @endphp
-                @foreach ($order->orderItems as $orderItem)
-                    <tr>
-                        <td class="service">{{ $orderItem->product->name }}</td>
-                        <td class="unit">Rp. {{ $orderItem->price }}</td>
-                        <td class="qty">{{ $orderItem->quantity }}</td>
-                        <td class="total">Rp.
-                            {{ $orderItem->quantity * $orderItem->price }}</td>
-                        @php
-                            $totalPrice += $orderItem->quantity * $orderItem->price;
-                        @endphp
-                    </tr>
-                @endforeach
-                <tr>
-                    <td colspan="3" class="grand total">TOTAL AMOUNT</td>
-                    <td class="grand total">Rp. {{ $totalPrice }}</td>
-                </tr>
-            </tbody>
-        </table>
-        <br>
-        <hr>
-        <div>
-            <div class="notice">Thank your for shopping with Mama Frozen of Web IT</div>
+        <div class="card">
+            <div class="card-body">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th class="service">ID</th>
+                            <th class="service">Name</th>
+                            <th class="service">Email</th>
+                            <th class="service">Role</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($users as $user)
+                            <tr>
+                                <td class="service">{{ $user->id }}</td>
+                                <td class="unit">{{ $user->name }}</td>
+                                <td class="unit">{{ $user->email }}</td>
+                                <td class="unit">
+                                    @if ($user->role_as == '0')
+                                        <label class="badge btn-primary">User</label>
+                                    @elseif($user->role_as == '1')
+                                        <label class="badge btn-success">Admin</label>
+                                    @else
+                                        <label class="badge btn-danger">none</label>
+                                    @endif
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="5">No Users Available</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
         </div>
     </main>
 </body>

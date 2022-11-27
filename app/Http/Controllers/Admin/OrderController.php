@@ -53,7 +53,9 @@ class OrderController extends Controller
     public function viewInvoice(int $orderId)
     {
         $order = Order::findOrFail($orderId);
-        return view('admin.invoice.generate-invoice', compact('order'));
+        $todayDate = Carbon::now()->format('d-m-Y');
+        $pdf = Pdf::loadView('admin.invoice.generate-invoice', compact('order'));
+        return $pdf->stream('invoice-'.$order->id.'-'.$todayDate.'.pdf');
     }
 
     public function generateInvoice(int $orderId)
